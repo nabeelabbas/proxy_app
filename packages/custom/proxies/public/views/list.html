@@ -1,0 +1,23 @@
+<section data-ng-controller="ProxiesController" data-ng-init="find()">
+    <a href="/#!/proxies/list">Get List of Proxies</a>
+    <a href="/#!/proxies/create">Create New One</a>
+    <h1 data-ng-hide="!proxies || proxies.length">No proxies yet. <br> Why don't you <a href="/#!/proxies/create">Create One</a>?</h1>
+    <ul class="proxies unstyled">
+
+        <li data-ng-repeat="proxy in proxies">
+            <!-- <span>{{proxy.created| date:'medium'}}</span> /
+             <span>{{proxy.user.name}}</span>-->
+            <h2>
+                <a data-ng-href="#!/proxies/{{proxy._id}}">{{proxy.ip_address}}:{{proxy.port_num}} of {{proxy.comapany_name}}</a>
+                <span data-ng-if="hasAuthorization(proxy)">
+                    <!--<a class="btn" href="/#!/proxies/{{proxy._id}}/edit">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </a>-->
+                    <a class="btn" data-ng-click="remove(proxy);">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </a>
+                </span>
+            </h2>
+        </li>
+    </ul>
+</section>

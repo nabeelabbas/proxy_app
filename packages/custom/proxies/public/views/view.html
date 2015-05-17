@@ -1,0 +1,14 @@
+<section data-ng-controller="ProxiesController" data-ng-init="findOne()">
+  <span>{{proxy.created | date:'medium'}}</span> /
+  <span>{{proxy.user.name}}</span>
+  <h2>{{proxy.ip_address}}</h2>
+  <div data-ng-if="hasAuthorization(proxy)">
+    <a class="btn" href="/#!/proxies/{{proxy._id}}/edit">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn" data-ng-click="remove(proxy);">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <div>{{proxy.port_num}}</div>
+</section>

@@ -1,0 +1,38 @@
+<section data-ng-controller="ProxiesController">
+    <div class="col-md-3">
+        <label class="col-md-6 control-label">Number of proxies</label>
+        <input name="number_of_ips" type="number" class="form-control" data-ng-model="number_of_ips" id="" number_of_ips="Numbers" required>
+        <div ng-show="submitted && proxyForm.ip_address.$invalid" class="help-block">
+            <p ng-show="proxyForm.ip_address.$error.required">IP is required</p>
+        </div>
+    </div>
+    <br>
+    <div class="col-md-6">
+        <label class="col-md-6 control-label">Company Name</label>
+        <select class="form-control" name="company_name" data-ng-model="name_of_company" ng-options="company as companies for company in companies">
+        </select>
+    </div>
+    <br>
+    <div class="form-group col-md-3">
+        <div class="col-md-offset-3 col-md-9">
+            <button  type="submit" ng-click="list()" class="btn btn-info">Submit</button>
+        </div>
+    </div>
+
+
+    <ul class="proxies unstyled">
+        <li data-ng-repeat="proxy in list_of_proxies">
+            <!-- <span>{{proxy.created| date:'medium'}}</span> /
+             <span>{{proxy.user.name}}</span> -->
+            <h2>
+                <a data-ng-href="#!/proxies/{{proxy._id}}">{{proxy.ip_address}}:{{proxy.port_num}}</a>
+                <span data-ng-if="hasAuthorization(proxy)">
+                    <a class="btn" data-ng-click="remove(proxy);">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </a>
+                </span>
+            </h2>
+        </li>
+    </ul>
+
+</section>

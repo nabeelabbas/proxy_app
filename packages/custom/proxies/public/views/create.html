@@ -1,0 +1,24 @@
+<section data-ng-controller="ProxiesController">
+    <!--<form name="proxyForm" class="form-horizontal col-md-6" role="form" data-ng-submit="create(proxyForm.$valid)" novalidate>-->
+    <div class="form-group">
+        <label mean-token="'create-ip_address'" class="col-md-3 control-label">company_name</label>
+        <div class="col-md-9">
+            <input name="company_name" type="text" class="form-control" data-ng-model="company_name" id="company_name" placeholder="Company Name" required = 'true'>
+        </div>
+
+    </div>
+    <div></div>
+    <div class="form-group">
+        <label class="col-md-3 control-label">Proxy Files</label>
+        <div class="col-md-9">
+            <mean-upload file-dest="'/packages/photos/'" upload-file-callback="uploadFileProxyCallback(file)"></mean-upload>
+            <br>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-3 col-md-9">
+            <button type="submit" ng-click="create();" class="btn btn-info">Submit</button>
+        </div>
+    </div>
+    <!--</form>-->
+</section>

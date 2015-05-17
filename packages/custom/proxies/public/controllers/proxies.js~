@@ -1,0 +1,83 @@
+'use strict';
+
+angular.module('mean.proxies').controller('ProxiesController', ['$scope', '$stateParams', '$location', 'Global', 'Proxies',
+    function($scope, $stateParams, $location, Global, Proxies) {
+        $scope.global = Global;
+        $scope.hasAuthorization = function(proxy) {
+            if (!proxy || !proxy.user)
+                return false;
+            return $scope.global.isAdmin || proxy.user._id === $scope.global.user._id;
+        };
+
+        $scope.create = function(isValid) {
+            console.log("sdaklfhaskfhaskjf");
+            if (isValid) {
+                var proxy = new Proxies({
+                    ip_address: this.ip_address,
+                    port_num: this.port_num
+                });
+                proxy.$save(function(response) {
+                    $location.path('proxies/' + response._id);
+                });
+
+                this.ip_address = '';
+                this.port_num = '';
+            } else {
+                $scope.submitted = true;
+            }
+        };
+        
+   $scope.deletePhoto = function(photo) {
+        var index = $scope.article.images.indexOf(photo);
+        $scope.article.images.splice(index, 1);
+    }
+
+        $scope.remove = function(proxy) {
+            if (proxy) {
+                proxy.$remove(function(response) {
+                    for (var i in $scope.proxies) {
+                        if ($scope.proxies[i] === proxy) {
+                            $scope.proxies.splice(i, 1);
+                        }
+                    }
+                    $location.path('proxies');
+                });
+            } else {
+                $scope.proxy.$remove(function(response) {
+                    $location.path('proxies');
+                });
+            }
+        };
+
+
+       $scope.update = function(isValid) {
+            if (isValid) {
+                var proxy = $scope.proxy;
+                if (!proxy.updated) {
+                    proxy.updated = [];
+                }
+                proxy.updated.push(new Date().getTime());
+
+                proxy.$update(function() {
+                    $location.path('proxies/' + proxy._id);
+                });
+            } else {
+                $scope.submitted = true;
+            }
+        };
+
+        $scope.find = function() {
+            Proxies.query(function(proxies) {
+                $scope.proxies = proxies;
+            });
+        };
+
+        $scope.findOne = function() {
+            Proxies.get({
+                proxyId: $stateParams.proxyId
+            }, function(proxy) {
+                $scope.proxy = proxy;
+            });
+        };
+    }
+]);
